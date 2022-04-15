@@ -20,7 +20,7 @@ class AuthSelectionScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Center(
-                      child: Container(
+                      child: SizedBox(
                         width: MediaQuery.of(context).size.width * 0.8,
                         child: const Image(
                           image:
@@ -39,7 +39,7 @@ class AuthSelectionScreen extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    Container(
+                    SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
                       child: const Text(
                         "Bring together your files, your tools, project and people.Including a new mobile and desktop application.",
