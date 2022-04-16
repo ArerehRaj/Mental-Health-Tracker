@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "591410312630",
+    "project_id": "happyment-1c27e",
+    "storage_bucket": "happyment-1c27e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:591410312630:android:a3ea1478b468597d39bd17",
+        "android_client_info": {
+          "package_name": "com.example.mental_health_tracker_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "591410312630-7n3lmk5e08sl13ik21kfe2ecv505bl2n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5zqUobdI7IZdm6-x5Awhovq49rGk0Dis"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "591410312630-7n3lmk5e08sl13ik21kfe2ecv505bl2n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
