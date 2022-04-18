@@ -15,8 +15,32 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isPasswordVisible = true;
+  final _formKey = GlobalKey<FormState>();
+  var _userEmail = '';
+  var _userPassword = '';
+
+  void _trySubmit(Function submitFunction) {
+    final isValid = _formKey.currentState!.validate();
+    FocusScope.of(context).unfocus();
+
+    if (isValid) {
+      _formKey.currentState!.save();
+      submitFunction(
+        '',
+        _userPassword.trim(),
+        _userEmail.trim(),
+        '',
+        true,
+        context,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final routeArgs =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    final authFunction = routeArgs['auth_function'];
     return Scaffold(
       backgroundColor: kBackgroundColor,
       appBar: AppBar(
@@ -37,36 +61,136 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Flexible(
                       fit: FlexFit.loose,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Welcome back.",
-                            style: kHeadline,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          const Text(
-                            "You've been missed!",
-                            style: kBodyText2,
-                          ),
-                          const SizedBox(
-                            height: 60,
-                          ),
-                          const MyTextField(
-                            hintText: 'Phone, email or username',
-                            inputType: TextInputType.text,
-                          ),
-                          MyPasswordField(
-                            isPasswordVisible: isPasswordVisible,
-                            onTap: () {
-                              setState(() {
-                                isPasswordVisible = !isPasswordVisible;
-                              });
-                            },
-                          ),
-                        ],
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "Welcome back.",
+                              style: kHeadline,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text(
+                              "You've been missed!",
+                              style: kBodyText2,
+                            ),
+                            const SizedBox(
+                              height: 60,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: TextFormField(
+                                style: kBodyText.copyWith(color: Colors.white),
+                                keyboardType: TextInputType.text,
+                                textInputAction: TextInputAction.next,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Please enter a valid input';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _userEmail = value.toString();
+                                },
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.all(20),
+                                  hintText: 'Phone, email or username',
+                                  hintStyle: kBodyText,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // MyTextField(
+                            //   hintText: 'Phone, email or username',
+                            //   inputType: TextInputType.text,
+                            //   inputValue: _userEmail,
+                            // ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: TextFormField(
+                                style: kBodyText.copyWith(
+                                  color: Colors.white,
+                                ),
+                                obscureText: isPasswordVisible,
+                                keyboardType: TextInputType.text,
+                                textInputAction: TextInputAction.done,
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length < 7) {
+                                    return 'Please enter atleast 7 chars long password.';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {
+                                  _userPassword = value.toString();
+                                },
+                                decoration: InputDecoration(
+                                  suffixIcon: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: IconButton(
+                                      splashColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onPressed: () {
+                                        setState(() {
+                                          isPasswordVisible =
+                                              !isPasswordVisible;
+                                        });
+                                      },
+                                      icon: Icon(
+                                        isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                  ),
+                                  contentPadding: EdgeInsets.all(20),
+                                  hintText: 'Password',
+                                  hintStyle: kBodyText,
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.grey,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
+                                    borderRadius: BorderRadius.circular(18),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            // MyPasswordField(
+                            //   isPasswordVisible: isPasswordVisible,
+                            //   onTap: () {
+                            //     setState(() {
+                            //       isPasswordVisible = !isPasswordVisible;
+                            //     });
+                            //   },
+                            //   inputValue: _userPassword,
+                            // ),
+                          ],
+                        ),
                       ),
                     ),
                     Row(
@@ -99,7 +223,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     MyTextButton(
                       buttonName: 'Sign In',
-                      onTap: () {},
+                      onTap: () {
+                        _trySubmit(authFunction);
+                      },
                       bgColor: Colors.white,
                       textColor: Colors.black87,
                     ),

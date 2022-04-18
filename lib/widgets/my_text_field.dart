@@ -3,22 +3,33 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 
 class MyTextField extends StatelessWidget {
-  const MyTextField({
+  MyTextField({
     Key? key,
     required this.hintText,
     required this.inputType,
+    required this.inputValue,
   }) : super(key: key);
   final String hintText;
   final TextInputType inputType;
+  var inputValue;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: TextField(
+      child: TextFormField(
         style: kBodyText.copyWith(color: Colors.white),
         keyboardType: inputType,
         textInputAction: TextInputAction.next,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please enter a valid input';
+          }
+          return null;
+        },
+        onSaved: (value) {
+          inputValue = value.toString();
+        },
         decoration: InputDecoration(
           contentPadding: EdgeInsets.all(20),
           hintText: hintText,
