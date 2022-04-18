@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:mental_health_tracker_app/screens/quiz/quiz_screen.dart';
 
 import './screens/auth_selection_screen.dart';
 import './screens/login_screen.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.routeName: (ctx) => const LoginScreen(),
         RegisterPage.routeName: (ctx) => RegisterPage(),
         HomeScreen.routeName: (ctx) => const HomeScreen(),
+        QuizScreen.routeName: (ctx) => QuizScreen(),
       },
     );
   }

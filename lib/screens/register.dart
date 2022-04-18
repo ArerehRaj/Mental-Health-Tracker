@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/text_button.dart';
-import '../widgets/my_text_field.dart';
-import '../widgets/my_password_field.dart';
 import '../constants.dart';
 
 class RegisterPage extends StatefulWidget {
