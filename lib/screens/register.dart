@@ -189,21 +189,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ),
-                            // MyTextField(
-                            //   hintText: 'Name',
-                            //   inputType: TextInputType.name,
-                            //   inputValue: _userName,
-                            // ),
-                            // MyTextField(
-                            //   hintText: 'Email',
-                            //   inputType: TextInputType.emailAddress,
-                            //   inputValue: _userEmail,
-                            // ),
-                            // MyTextField(
-                            //   hintText: 'Phone',
-                            //   inputType: TextInputType.phone,
-                            //   inputValue: _userPhone,
-                            // ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: TextFormField(
@@ -263,15 +248,6 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               ),
                             ),
-                            // MyPasswordField(
-                            //   isPasswordVisible: passwordVisibility,
-                            //   onTap: () {
-                            //     setState(() {
-                            //       passwordVisibility = !passwordVisibility;
-                            //     });
-                            //   },
-                            //   inputValue: _userPassword,
-                            // )
                           ],
                         ),
                       ),

@@ -116,11 +116,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            // MyTextField(
-                            //   hintText: 'Phone, email or username',
-                            //   inputType: TextInputType.text,
-                            //   inputValue: _userEmail,
-                            // ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: TextFormField(
@@ -180,15 +175,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ),
                               ),
                             ),
-                            // MyPasswordField(
-                            //   isPasswordVisible: isPasswordVisible,
-                            //   onTap: () {
-                            //     setState(() {
-                            //       isPasswordVisible = !isPasswordVisible;
-                            //     });
-                            //   },
-                            //   inputValue: _userPassword,
-                            // ),
                           ],
                         ),
                       ),

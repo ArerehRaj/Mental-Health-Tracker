@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:mental_health_tracker_app/screens/home_screen.dart';
 
 import 'package:mental_health_tracker_app/screens/login_screen.dart';
 import 'package:mental_health_tracker_app/screens/register.dart';
@@ -63,6 +64,7 @@ class AuthSelectionScreen extends StatelessWidget {
         ),
       );
     }
+    Navigator.of(ctx).pop();
   }
 
   @override
