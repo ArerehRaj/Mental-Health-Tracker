@@ -87,12 +87,14 @@ class QuestionController extends GetxController
 
     // Once user select an ans after 3s it will go to the next qn
     Future.delayed(Duration(seconds: 3), () {
+      print('1');
       nextQuestion();
     });
   }
 
   void nextQuestion() {
     if (_questionNumber.value != _questions.length) {
+      print('2');
       _isAnswered = false;
       _pageController.nextPage(
           duration: Duration(milliseconds: 250), curve: Curves.ease);
@@ -105,7 +107,8 @@ class QuestionController extends GetxController
       _animationController.forward().whenComplete(nextQuestion);
     } else {
       // Get package provide us simple way to naviigate another page
-      Get.to(ScoreScreen());
+      print('3');
+      Get.to(() => ScoreScreen());
     }
   }
 

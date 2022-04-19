@@ -117,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: TextFormField(
                                 style: kBodyText.copyWith(
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 82, 82, 82),
                                 ),
                                 obscureText: isPasswordVisible,
                                 keyboardType: TextInputType.text,
@@ -164,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                      color: Colors.white,
+                                      color: Color.fromARGB(255, 95, 95, 95),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(18),
