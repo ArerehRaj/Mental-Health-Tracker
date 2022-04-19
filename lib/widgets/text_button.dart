@@ -22,6 +22,10 @@ class MyTextButton extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: bgColor,
+        border: Border.all(
+          color: Colors.black,
+          width: 1,
+        ),
         borderRadius: BorderRadius.circular(18),
       ),
       child: TextButton(

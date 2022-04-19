@@ -13,27 +13,26 @@ class Question {
 const List sample_data = [
   {
     "id": 1,
-    "question":
-        "Flutter is an open-source UI software development kit created by ______",
-    "options": ['Apple', 'Google', 'Facebook', 'Microsoft'],
-    "answer_index": 1,
+    "question": "How was your day?",
+    "options": ['Excellent', 'Very Good', 'Good', 'Decent', 'Bad'],
+    "answer_index": 2,
   },
   {
     "id": 2,
-    "question": "When google release Flutter.",
-    "options": ['Jun 2017', 'Jun 2017', 'May 2017', 'May 2018'],
+    "question": "How many people did you interact with today?",
+    "options": ['10-15', '20-25', '25-50', '50+'],
     "answer_index": 2,
   },
   {
     "id": 3,
-    "question": "A memory location that holds a single letter or number.",
-    "options": ['Double', 'Int', 'Char', 'Word'],
+    "question": "How are you feeling currently?",
+    "options": ['Happy', 'Sad', 'Angry', 'Gloomy'],
     "answer_index": 2,
   },
   {
     "id": 4,
-    "question": "What command do you use to output data to the screen?",
-    "options": ['Cin', 'Count>>', 'Cout', 'Output>>'],
+    "question": "Did you eat well today?",
+    "options": ['Yes', 'No', 'Maybe', "Don't Know"],
     "answer_index": 2,
   },
 ];

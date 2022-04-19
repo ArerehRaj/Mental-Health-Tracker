@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     final authFunction = routeArgs['auth_function'];
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         elevation: 0,
@@ -67,15 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Welcome back.",
+                              "Login",
                               style: kHeadline,
                             ),
                             const SizedBox(
                               height: 10,
-                            ),
-                            const Text(
-                              "You've been missed!",
-                              style: kBodyText2,
                             ),
                             const SizedBox(
                               height: 60,
@@ -83,7 +79,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: TextFormField(
-                                style: kBodyText.copyWith(color: Colors.white),
+                                style: kBodyText.copyWith(
+                                    color: Color.fromARGB(255, 0, 0, 0)),
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,
                                 validator: (value) {
@@ -155,7 +152,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                   ),
-                                  contentPadding: EdgeInsets.all(20),
+                                  contentPadding: const EdgeInsets.all(20),
                                   hintText: 'Password',
                                   hintStyle: kBodyText,
                                   enabledBorder: OutlineInputBorder(
@@ -198,7 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             'Register',
                             style: kBodyText.copyWith(
-                              color: Colors.white,
+                              color: Color.fromARGB(255, 0, 0, 0),
                             ),
                           ),
                         )
@@ -212,8 +209,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       onTap: () {
                         _trySubmit(authFunction);
                       },
-                      bgColor: Colors.white,
+                      bgColor: Color.fromRGBO(171, 248, 243, 1),
                       textColor: Colors.black87,
+                    ),
+                    const SizedBox(
+                      height: 30,
                     ),
                   ],
                 ),

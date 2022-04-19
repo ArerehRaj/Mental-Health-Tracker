@@ -13,25 +13,32 @@ const kPrimaryGradient = LinearGradient(
 
 const double kDefaultPadding = 20.0;
 // Colors
-const kBackgroundColor = Color(0xff191720);
+const kBackgroundColor = Color.fromRGBO(171, 248, 243, 1);
 const kTextFieldFill = Color(0xff1E1C24);
 // TextStyles
 const kHeadline = TextStyle(
-  color: Colors.white,
-  fontSize: 34,
+  color: Colors.black,
+  fontSize: 36,
   fontWeight: FontWeight.bold,
+  fontFamily: 'Alegreya',
 );
 
 const kBodyText = TextStyle(
-  color: Colors.grey,
-  fontSize: 15,
+  color: Color.fromARGB(255, 65, 65, 65),
+  fontSize: 24,
+  fontFamily: 'Alegreya',
 );
 
 const kButtonText = TextStyle(
   color: Colors.black87,
-  fontSize: 16,
+  fontSize: 36,
   fontWeight: FontWeight.bold,
+  fontFamily: 'Alegreya',
 );
 
-const kBodyText2 =
-    TextStyle(fontSize: 28, fontWeight: FontWeight.w500, color: Colors.white);
+const kBodyText2 = TextStyle(
+  fontSize: 28,
+  fontWeight: FontWeight.w500,
+  color: Colors.black,
+  fontFamily: 'Alegreya',
+);

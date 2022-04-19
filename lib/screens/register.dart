@@ -46,7 +46,7 @@ class _RegisterPageState extends State<RegisterPage> {
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     final authFunction = routeArgs['auth_function'];
     return Scaffold(
-      backgroundColor: kBackgroundColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: kBackgroundColor,
         elevation: 0,
@@ -69,12 +69,8 @@ class _RegisterPageState extends State<RegisterPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Register",
+                              "Sign Up",
                               style: kHeadline,
-                            ),
-                            const Text(
-                              "Create new account to get started.",
-                              style: kBodyText2,
                             ),
                             const SizedBox(
                               height: 50,
@@ -100,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                   hintStyle: kBodyText,
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                      color: Colors.grey,
+                                      color: Color.fromRGBO(161, 161, 161, 1),
                                       width: 1,
                                     ),
                                     borderRadius: BorderRadius.circular(18),
@@ -260,7 +256,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         Text(
                           "Sign In",
                           style: kBodyText.copyWith(
-                            color: Colors.white,
+                            color: Color.fromARGB(255, 0, 0, 0),
                           ),
                         ),
                       ],
@@ -273,9 +269,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       onTap: () {
                         _trySubmit(authFunction);
                       },
-                      bgColor: Colors.white,
-                      textColor: Colors.black87,
-                    )
+                      bgColor: kBackgroundColor,
+                      textColor: Color.fromARGB(255, 0, 0, 0),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
                   ],
                 ),
               ),
