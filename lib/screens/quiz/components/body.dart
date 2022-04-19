@@ -23,13 +23,13 @@ class Body extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: ProgressBar(
-                  key: null,
-                ),
-              ),
-              const SizedBox(height: kDefaultPadding),
+              // const Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+              //   child: ProgressBar(
+              //     key: null,
+              //   ),
+              // ),
+              // const SizedBox(height: kDefaultPadding),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
