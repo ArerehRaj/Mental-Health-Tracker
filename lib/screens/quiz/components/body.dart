@@ -18,7 +18,13 @@ class Body extends StatelessWidget {
     QuestionController _questionController = Get.put(QuestionController());
     return Stack(
       children: [
-        SvgPicture.asset("assets/icons/bg.svg", fit: BoxFit.fill),
+        Container(
+          height: 200,
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            color: kBackgroundColor,
+          ),
+        ),
         SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -72,51 +72,14 @@ class AuthSelectionScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: kBackgroundColor,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Column(
-            children: [
-              Flexible(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 350, horizontal: 30),
                 child: Column(
-                  children: [
-                    Center(
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        child: const Image(
-                          image:
-                              AssetImage('assets/images/team_illustration.png'),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "Enterprise team\ncollaboration.",
-                      style: kHeadline,
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      child: const Text(
-                        "Bring together your files, your tools, project and people.Including a new mobile and desktop application.",
-                        style: kBodyText,
-                        textAlign: TextAlign.center,
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
-                height: 60,
-                decoration: BoxDecoration(
-                  color: Colors.grey[850],
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Row(
                   children: [
                     Expanded(
                       child: MyTextButton(
@@ -133,9 +96,12 @@ class AuthSelectionScreen extends StatelessWidget {
                         textColor: Colors.black87,
                       ),
                     ),
+                    const SizedBox(
+                      height: 60,
+                    ),
                     Expanded(
                       child: MyTextButton(
-                        bgColor: Colors.transparent,
+                        bgColor: Colors.white,
                         buttonName: 'Sign In',
                         onTap: () {
                           Navigator.of(context).pushNamed(
@@ -145,14 +111,14 @@ class AuthSelectionScreen extends StatelessWidget {
                             },
                           );
                         },
-                        textColor: Colors.white,
+                        textColor: Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );
