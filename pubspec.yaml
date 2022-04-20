@@ -83,6 +83,7 @@ flutter:
     - assets/images/notification.png
     - assets/images/todo.png
     - assets/images/setting.png
+    - assets/images/app_logo.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

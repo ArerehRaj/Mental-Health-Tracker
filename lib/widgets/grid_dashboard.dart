@@ -57,8 +57,8 @@ class GridDashboard extends StatelessWidget {
         children: myList.map((data) {
           return GestureDetector(
             onTap: () {
-              // FirebaseAuth.instance.signOut();
-              Get.to(() => QuizScreen());
+              FirebaseAuth.instance.signOut();
+              // Get.to(() => QuizScreen());
             },
             child: Container(
               decoration: BoxDecoration(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health_tracker_app/screens/register.dart';
 import '../constants.dart';
 import '../widgets/text_button.dart';
 import '../widgets/my_text_field.dart';
@@ -44,7 +45,30 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: kBackgroundColor,
+        backgroundColor: Colors.white,
+        iconTheme: const IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        title: Row(
+          children: [
+            Image.asset(
+              'assets/images/app_logo.png',
+              fit: BoxFit.cover,
+              height: 30,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            const Text(
+              'HappyMent',
+              style: TextStyle(
+                color: Colors.black,
+                fontFamily: 'Alegreya',
+                fontSize: 22,
+              ),
+            ),
+          ],
+        ),
         elevation: 0,
       ),
       body: SafeArea(
@@ -64,11 +88,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Form(
                         key: _formKey,
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
                               "Login",
-                              style: kHeadline,
+                              style: TextStyle(
+                                fontFamily: 'Alegreya',
+                                fontSize: 35,
+                                color: Color.fromARGB(255, 65, 65, 65),
+                              ),
                             ),
                             const SizedBox(
                               height: 10,
@@ -80,7 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: TextFormField(
                                 style: kBodyText.copyWith(
-                                    color: Color.fromARGB(255, 0, 0, 0)),
+                                  color: Colors.deepPurple.shade700,
+                                ),
                                 keyboardType: TextInputType.text,
                                 textInputAction: TextInputAction.next,
                                 validator: (value) {
@@ -93,22 +123,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                   _userEmail = value.toString();
                                 },
                                 decoration: InputDecoration(
-                                  contentPadding: const EdgeInsets.all(20),
+                                  contentPadding: const EdgeInsets.all(15),
                                   hintText: 'Phone, email or username',
                                   hintStyle: kBodyText,
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                      color: Colors.grey,
-                                      width: 1,
+                                      color: Colors.black,
+                                      width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Colors.white,
-                                      width: 1,
+                                    borderSide: BorderSide(
+                                      color: Colors.deepPurple.shade700,
+                                      width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
                               ),
@@ -117,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               padding: const EdgeInsets.symmetric(vertical: 10),
                               child: TextFormField(
                                 style: kBodyText.copyWith(
-                                  color: Color.fromARGB(255, 82, 82, 82),
+                                  color: Colors.deepPurple.shade700,
                                 ),
                                 obscureText: isPasswordVisible,
                                 keyboardType: TextInputType.text,
@@ -152,22 +182,22 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ),
                                     ),
                                   ),
-                                  contentPadding: const EdgeInsets.all(20),
+                                  contentPadding: const EdgeInsets.all(15),
                                   hintText: 'Password',
                                   hintStyle: kBodyText,
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(
-                                      color: Colors.grey,
-                                      width: 1,
+                                      color: Colors.black,
+                                      width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                   focusedBorder: OutlineInputBorder(
-                                    borderSide: const BorderSide(
-                                      color: Color.fromARGB(255, 95, 95, 95),
-                                      width: 1,
+                                    borderSide: BorderSide(
+                                      color: Colors.deepPurple.shade700,
+                                      width: 2,
                                     ),
-                                    borderRadius: BorderRadius.circular(18),
+                                    borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
                               ),
@@ -176,7 +206,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
@@ -185,12 +215,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   CupertinoPageRoute(
-                            //     builder: (context) => RegisterPage(),
-                            //   ),
-                            // );
+                            Navigator.of(context).pushReplacementNamed(
+                              RegisterPage.routeName,
+                              arguments: {
+                                'auth_function': authFunction,
+                              },
+                            );
                           },
                           child: Text(
                             'Register',
@@ -204,13 +234,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    MyTextButton(
-                      buttonName: 'Sign In',
-                      onTap: () {
-                        _trySubmit(authFunction);
-                      },
-                      bgColor: Color.fromRGBO(171, 248, 243, 1),
-                      textColor: Colors.black87,
+                    Container(
+                      height: 50,
+                      width: MediaQuery.of(context).size.width,
+                      child: OutlineButton(
+                        splashColor: Colors.deepPurple.shade700,
+                        onPressed: () {
+                          _trySubmit(authFunction);
+                        },
+                        child: const Text(
+                          'Sign In',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontFamily: 'Alegreya',
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 30,

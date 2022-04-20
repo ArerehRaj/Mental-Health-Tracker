@@ -70,55 +70,104 @@ class AuthSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: kBackgroundColor,
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 350, horizontal: 30),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            children: [
+              Flexible(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: MyTextButton(
-                        bgColor: Colors.white,
-                        buttonName: 'Register',
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            RegisterPage.routeName,
-                            arguments: {
-                              'auth_function': _submitAuthForm,
-                            },
-                          );
-                        },
-                        textColor: Colors.black87,
+                    Center(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: const Image(
+                          image: AssetImage('assets/images/app_logo.png'),
+                        ),
                       ),
                     ),
                     const SizedBox(
-                      height: 60,
+                      height: 20,
+                    ),
+                    const Text(
+                      "HappyMent\nFor You.",
+                      style: kHeadline,
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width,
+                      child: const Text(
+                        "Mental illness is not a personal failure.Be brave and it will pass by.",
+                        style: kBodyText,
+                        textAlign: TextAlign.center,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 60,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 50,
+                        child: OutlineButton(
+                          splashColor: Colors.deepPurple.shade700,
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              RegisterPage.routeName,
+                              arguments: {
+                                'auth_function': _submitAuthForm,
+                              },
+                            );
+                          },
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: 'Alegreya',
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.05,
                     ),
                     Expanded(
-                      child: MyTextButton(
-                        bgColor: Colors.white,
-                        buttonName: 'Sign In',
-                        onTap: () {
-                          Navigator.of(context).pushNamed(
-                            LoginScreen.routeName,
-                            arguments: {
-                              'auth_function': _submitAuthForm,
-                            },
-                          );
-                        },
-                        textColor: Color.fromARGB(255, 0, 0, 0),
+                      child: Container(
+                        height: 50,
+                        child: OutlineButton(
+                          splashColor: Colors.deepPurple.shade700,
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(
+                              LoginScreen.routeName,
+                              arguments: {
+                                'auth_function': _submitAuthForm,
+                              },
+                            );
+                          },
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontFamily: 'Alegreya',
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

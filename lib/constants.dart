@@ -24,7 +24,7 @@ const kHeadline = TextStyle(
 );
 
 const kBodyText = TextStyle(
-  color: Color.fromARGB(255, 65, 65, 65),
+  color: Colors.black,
   fontSize: 24,
   fontFamily: 'Alegreya',
 );
