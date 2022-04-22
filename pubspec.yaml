@@ -84,6 +84,13 @@ flutter:
     - assets/images/todo.png
     - assets/images/setting.png
     - assets/images/app_logo.png
+    - assets/images/angry.png
+    - assets/images/fatigue.png
+    - assets/images/happy-face.png
+    - assets/images/meditation.png
+    - assets/images/relaxing.png
+    - assets/images/target.png
+    - assets/images/tired.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

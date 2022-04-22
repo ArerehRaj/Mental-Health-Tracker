@@ -26,7 +26,6 @@ class AuthSelectionScreen extends StatelessWidget {
     UserCredential authResult;
     try {
       if (isLogin) {
-        print('HERE');
         authResult = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
       } else {
