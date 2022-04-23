@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MainDrawer extends StatelessWidget {
   MainDrawer({
@@ -112,10 +113,11 @@ class MainDrawer extends StatelessWidget {
           buildListTile(
             'Logout',
             Icons.logout,
-            () {
+            () async {
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setBool('first_time', false);
+              print('here');
               FirebaseAuth.instance.signOut();
-              // Navigator.of(context)
-              // .pushReplacementNamed(FiltersScreen.routeName);
             },
           ),
         ],

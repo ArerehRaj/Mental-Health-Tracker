@@ -10,6 +10,8 @@ import 'package:mental_health_tracker_app/screens/register.dart';
 import '../constants.dart';
 import '../widgets/text_button.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class AuthSelectionScreen extends StatelessWidget {
   AuthSelectionScreen({Key? key}) : super(key: key);
 
@@ -25,12 +27,16 @@ class AuthSelectionScreen extends StatelessWidget {
   ) async {
     UserCredential authResult;
     try {
+      final prefs = await SharedPreferences.getInstance();
       if (isLogin) {
         authResult = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
+        await prefs.setBool('first_time', false);
       } else {
         authResult = await _auth.createUserWithEmailAndPassword(
             email: email, password: password);
+
+        await prefs.setBool('first_time', true);
 
         await FirebaseFirestore.instance
             .collection('users')
