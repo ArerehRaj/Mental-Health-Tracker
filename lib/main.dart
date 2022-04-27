@@ -34,16 +34,14 @@ class MyApp extends StatelessWidget {
           if (userSnapshot.connectionState == ConnectionState.waiting) {
             return const Text('Connecting...');
           }
-
           if (userSnapshot.hasData) {
             if (prefs.containsKey('first_time') &&
                 prefs.getBool('first_time')) {
               return FirstTimeForm();
+            } else {
+              return const HomeScreen();
             }
-
-            return const HomeScreen();
           }
-
           return AuthSelectionScreen();
         },
       ),

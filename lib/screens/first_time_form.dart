@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_list_pick/country_list_pick.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_tracker_app/screens/home_screen.dart';
@@ -37,6 +39,17 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
   String? six;
   String? seven;
   String? eight;
+
+  int score = 0;
+  int userLevel = 1;
+
+  // high score -> light qs (low level)
+  // low score -> imp qs (high level)
+  // 1- 16 -> 5
+  // 17- 32 -> 4
+  // 33- 48 -> 3
+  // 49- 64 -> 2
+  // 65- 80 -> 1
 
   DropdownMenuItem<String> buildMenuItem(String item) => DropdownMenuItem(
         value: item,
@@ -213,7 +226,7 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             hint: const Text(
-                              'Are you Self Employed?',
+                              'Are you Employed?',
                               style: TextStyle(
                                 fontSize: 22,
                                 fontFamily: 'Alegreya',
@@ -230,6 +243,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                             items: _binaryOptions.map(buildMenuItem).toList(),
                             onChanged: (value) => setState(() {
                               one = value as String;
+                              if (value.toString() == 'Yes') {
+                                score = score + 8;
+                              } else {
+                                score = score + 3;
+                              }
                             }),
                           ),
                         ),
@@ -272,6 +290,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                             items: _binaryOptions.map(buildMenuItem).toList(),
                             onChanged: (value) => setState(() {
                               two = value as String;
+                              if (value.toString() == 'Yes') {
+                                score = score + 7;
+                              } else {
+                                score = score + 4;
+                              }
                             }),
                           ),
                         ),
@@ -314,6 +337,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                             items: _binaryOptions.map(buildMenuItem).toList(),
                             onChanged: (value) => setState(() {
                               three = value as String;
+                              if (value.toString() == 'Yes') {
+                                score = score + 7;
+                              } else {
+                                score = score + 5;
+                              }
                             }),
                           ),
                         ),
@@ -356,6 +384,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                             items: _binaryOptions.map(buildMenuItem).toList(),
                             onChanged: (value) => setState(() {
                               four = value as String;
+                              if (value.toString() == 'Yes') {
+                                score = score + 10;
+                              } else {
+                                score = score + 2;
+                              }
                             }),
                           ),
                         ),
@@ -396,6 +429,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                             items: _binaryOptions.map(buildMenuItem).toList(),
                             onChanged: (value) => setState(() {
                               five = value as String;
+                              if (value.toString() == 'Yes') {
+                                score = score + 10;
+                              } else {
+                                score = score + 1;
+                              }
                             }),
                           ),
                         ),
@@ -457,6 +495,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                           items: _binaryOptions.map(buildMenuItem).toList(),
                           onChanged: (value) => setState(() {
                             six = value as String;
+                            if (value.toString() == 'Yes') {
+                              score = score + 8;
+                            } else {
+                              score = score + 4;
+                            }
                           }),
                         ),
                       ),
@@ -499,6 +542,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                           items: _binaryOptions.map(buildMenuItem).toList(),
                           onChanged: (value) => setState(() {
                             seven = value as String;
+                            if (value.toString() == 'Yes') {
+                              score = score + 4;
+                            } else {
+                              score = score + 9;
+                            }
                           }),
                         ),
                       ),
@@ -541,6 +589,11 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                           items: _binaryOptions.map(buildMenuItem).toList(),
                           onChanged: (value) => setState(() {
                             eight = value as String;
+                            if (value.toString() == 'Yes') {
+                              score = score + 9;
+                            } else {
+                              score = score + 3;
+                            }
                           }),
                         ),
                       ),
@@ -608,12 +661,42 @@ class _FirstTimeFormState extends State<FirstTimeForm> {
                 final lastStep =
                     currentStep == _getSteps(deviceSize.height).length - 1;
                 if (lastStep) {
-                  print('Done');
                   final prefs = await SharedPreferences.getInstance();
                   await prefs.setBool('first_time', false);
                   setState(() {
                     _isCompleted = true;
                   });
+
+                  if (score >= 1 && score <= 16) {
+                    userLevel = 5;
+                  } else if (score >= 17 && score <= 32) {
+                    userLevel = 4;
+                  } else if (score >= 33 && score <= 48) {
+                    userLevel = 3;
+                  } else if (score >= 49 && score <= 64) {
+                    userLevel = 2;
+                  } else if (score >= 65 && score <= 80) {
+                    userLevel = 1;
+                  }
+
+                  final _userID = FirebaseAuth.instance.currentUser!.uid;
+
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(_userID)
+                      .update(
+                    {
+                      'user_level': userLevel,
+                    },
+                  );
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: const Text('Thanks for filling out the Form.'),
+                      backgroundColor: Colors.green.shade300,
+                    ),
+                  );
+
                   Get.to(() => const HomeScreen());
                 } else {
                   setState(() {

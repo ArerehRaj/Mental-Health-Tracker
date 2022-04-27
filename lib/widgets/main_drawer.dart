@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:mental_health_tracker_app/screens/quiz/quiz_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -96,10 +98,25 @@ class MainDrawer extends StatelessWidget {
             ),
           ),
           buildListTile(
-            'Tab 1',
-            Icons.tab,
+            'Take a Test',
+            Icons.spellcheck_rounded,
             () {
-              // Navigator.of(context).pushReplacementNamed('/');
+              Get.to(() => QuizScreen());
+            },
+          ),
+          buildListTile(
+            'Tasks',
+            Icons.task_alt_sharp,
+            () {
+              // Get.to(() => QuizScreen());
+            },
+          ),
+          buildListTile(
+            'Suggestions',
+            Icons.health_and_safety_sharp,
+            () {
+              // TMDBApi tmdb = new TMDBApi('YOUR_API_KEY_HERE');
+              // Get.to(() => QuizScreen());
             },
           ),
           buildListTile(

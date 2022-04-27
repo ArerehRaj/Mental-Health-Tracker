@@ -46,6 +46,7 @@ class AuthSelectionScreen extends StatelessWidget {
             'name': name,
             'email': email,
             'phone': phone,
+            'user_level': 0,
           },
         );
       }

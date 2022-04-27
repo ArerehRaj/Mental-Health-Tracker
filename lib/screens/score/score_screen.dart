@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mental_health_tracker_app/screens/home_screen.dart';
 import '/constants.dart';
 import '/controllers/question_controller.dart';
 import 'package:flutter_svg/svg.dart';
@@ -30,6 +31,14 @@ class ScoreScreen extends StatelessWidget {
                     .textTheme
                     .headline4
                     ?.copyWith(color: kSecondaryColor),
+              ),
+              Expanded(
+                child: ElevatedButton(
+                  child: const Text('HOME'),
+                  onPressed: () {
+                    Get.to(() => const HomeScreen());
+                  },
+                ),
               ),
               const Spacer(flex: 3),
             ],
