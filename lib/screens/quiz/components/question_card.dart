@@ -18,33 +18,37 @@ class QuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     QuestionController _controller = Get.put(QuestionController());
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-      padding: EdgeInsets.all(kDefaultPadding),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: Column(
-        children: [
-          Text(
-            question.question,
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                ?.copyWith(color: kBlackColor),
-          ),
-          SizedBox(height: kDefaultPadding / 2),
-          ...List.generate(
-            question.options.length,
-            (index) => Option(
-              index: index,
-              text: question.options[index],
-              press: () => _controller.checkAns(question, index),
-              key: null,
+    return Material(
+      elevation: 100,
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        padding: EdgeInsets.all(kDefaultPadding),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(25),
+          // border: Border.all(color: Colors.black, width: 1),
+        ),
+        child: Column(
+          children: [
+            Text(
+              question.question,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6
+                  ?.copyWith(color: kBlackColor),
             ),
-          ),
-        ],
+            SizedBox(height: kDefaultPadding / 2),
+            ...List.generate(
+              question.options.length,
+              (index) => Option(
+                index: index,
+                text: question.options[index],
+                press: () => _controller.checkAns(question, index),
+                key: null,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

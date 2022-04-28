@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:mental_health_tracker_app/screens/first_time_form.dart';
 import 'package:mental_health_tracker_app/screens/quiz/quiz_screen.dart';
+import 'package:mental_health_tracker_app/screens/suggestions_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import './screens/auth_selection_screen.dart';
@@ -53,6 +54,7 @@ class MyApp extends StatelessWidget {
         RegisterPage.routeName: (ctx) => RegisterPage(),
         HomeScreen.routeName: (ctx) => const HomeScreen(),
         QuizScreen.routeName: (ctx) => QuizScreen(),
+        SuggestionsScreen.routeName: (ctx) => SuggestionsScreen(),
       },
     );
   }

@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   bool _isLoading = false;
   String _userName = '';
+  int _userLevel = 0;
   final _userID = FirebaseAuth.instance.currentUser!.uid;
 
   void setUserName() async {
@@ -32,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _isLoading = false;
       _userName = userData['name'];
+      _userLevel = int.parse(userData['user_level'].toString());
     });
   }
 
@@ -177,6 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: MainDrawer(
         userName: _userName,
+        userLevel: _userLevel,
       ),
       body: _isLoading
           ? Center(

@@ -21,8 +21,8 @@ class Body extends StatelessWidget {
         Container(
           height: 200,
           width: double.infinity,
-          decoration: const BoxDecoration(
-            color: kBackgroundColor,
+          decoration: BoxDecoration(
+            color: Colors.deepPurple.shade700.withOpacity(0.85),
           ),
         ),
         SafeArea(
@@ -37,24 +37,26 @@ class Body extends StatelessWidget {
                     TextSpan(
                       text:
                           "Question ${_questionController.questionNumber.value}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .headline4
-                          ?.copyWith(color: kSecondaryColor),
+                      style: Theme.of(context).textTheme.headline4?.copyWith(
+                            color: Colors.white,
+                          ),
                       children: [
                         TextSpan(
                           text: "/${_questionController.questions.length}",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headline5
-                              ?.copyWith(color: kSecondaryColor),
+                          style:
+                              Theme.of(context).textTheme.headline5?.copyWith(
+                                    color: Colors.white,
+                                  ),
                         ),
                       ],
                     ),
                   ),
                 ),
               ),
-              const Divider(thickness: 1.5),
+              const Divider(
+                thickness: 1,
+                color: Colors.white,
+              ),
               const SizedBox(height: kDefaultPadding),
               Expanded(
                 child: PageView.builder(

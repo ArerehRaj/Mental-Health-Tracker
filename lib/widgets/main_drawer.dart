@@ -1,16 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_tracker_app/screens/quiz/quiz_screen.dart';
+import 'package:mental_health_tracker_app/screens/suggestions_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainDrawer extends StatelessWidget {
   MainDrawer({
     Key? key,
     required this.userName,
+    required this.userLevel,
   }) : super(key: key);
 
   final userName;
+  final userLevel;
 
   Widget buildListTile(String title, IconData icon, VoidCallback tapHandler) {
     return ListTile(
@@ -100,8 +104,17 @@ class MainDrawer extends StatelessWidget {
           buildListTile(
             'Take a Test',
             Icons.spellcheck_rounded,
-            () {
-              Get.to(() => QuizScreen());
+            () async {
+              final questionsDocuments = await FirebaseFirestore.instance
+                  .collection('questionnaire')
+                  .where('level', isEqualTo: userLevel)
+                  .get();
+              // print(questionsDocuments.docs[0].get('question'));
+              Get.to(
+                () => QuizScreen(
+                  quizQuestions: questionsDocuments.docs,
+                ),
+              );
             },
           ),
           buildListTile(
@@ -116,7 +129,7 @@ class MainDrawer extends StatelessWidget {
             Icons.health_and_safety_sharp,
             () {
               // TMDBApi tmdb = new TMDBApi('YOUR_API_KEY_HERE');
-              // Get.to(() => QuizScreen());
+              Get.to(() => SuggestionsScreen());
             },
           ),
           buildListTile(
