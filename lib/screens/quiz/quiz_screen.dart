@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mental_health_tracker_app/models/Questions.dart';
 import '/controllers/question_controller.dart';
 
 import 'components/body.dart';
@@ -14,6 +15,8 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseQuestion.data = quizQuestions;
+    print(FirebaseQuestion.data);
     QuestionController _controller = Get.put(QuestionController());
     return Scaffold(
       extendBodyBehindAppBar: true,

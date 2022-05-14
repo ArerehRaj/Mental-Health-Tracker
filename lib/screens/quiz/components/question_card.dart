@@ -13,7 +13,7 @@ class QuestionCard extends StatelessWidget {
     required this.question,
   }) : super(key: key);
 
-  final Question question;
+  final FirebaseQuestion question;
 
   @override
   Widget build(BuildContext context) {
@@ -38,15 +38,28 @@ class QuestionCard extends StatelessWidget {
                   ?.copyWith(color: kBlackColor),
             ),
             SizedBox(height: kDefaultPadding / 2),
-            ...List.generate(
-              question.options.length,
-              (index) => Option(
-                index: index,
-                text: question.options[index],
-                press: () => _controller.checkAns(question, index),
-                key: null,
+            if (question.isMcq)
+              ...List.generate(
+                question.options.length,
+                (index) => Option(
+                  index: index,
+                  text: question.options[index]['ans'],
+                  press: () =>
+                      _controller.checkAns(question, index, question.isMcq),
+                  key: null,
+                ),
               ),
-            ),
+            if (!question.isMcq)
+              ...List.generate(
+                2,
+                (index) => Option(
+                  index: index,
+                  text: index == 0 ? 'Yes' : 'No',
+                  press: () =>
+                      _controller.checkAns(question, index, question.isMcq),
+                  key: null,
+                ),
+              ),
           ],
         ),
       ),

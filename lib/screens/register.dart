@@ -121,7 +121,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 },
                                 decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.all(15),
-                                  hintText: 'Name',
+                                  hintText: 'Username',
                                   hintStyle: kBodyText,
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: const BorderSide(

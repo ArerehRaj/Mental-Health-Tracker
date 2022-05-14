@@ -42,7 +42,8 @@ class Body extends StatelessWidget {
                           ),
                       children: [
                         TextSpan(
-                          text: "/${_questionController.questions.length}",
+                          text:
+                              "/${_questionController.firebaseQuestions.length}",
                           style:
                               Theme.of(context).textTheme.headline5?.copyWith(
                                     color: Colors.white,
@@ -64,9 +65,11 @@ class Body extends StatelessWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   controller: _questionController.pageController,
                   onPageChanged: _questionController.updateTheQnNum,
-                  itemCount: _questionController.questions.length,
+                  // itemCount: _questionController.questions.length,
+                  itemCount: _questionController.firebaseQuestions.length,
                   itemBuilder: (context, index) => QuestionCard(
-                    question: _questionController.questions[index],
+                    // question: _questionController.questions[index],
+                    question: _questionController.firebaseQuestions[index],
                     key: null,
                   ),
                 ),

@@ -36,3 +36,22 @@ const List sample_data = [
     "answer_index": 2,
   },
 ];
+
+class FirebaseQuestion {
+  final int level;
+  final int falseScore, trueScore;
+  final String question;
+  final bool isMcq;
+  final List<Map> options;
+
+  FirebaseQuestion({
+    required this.question,
+    required this.falseScore,
+    required this.options,
+    required this.trueScore,
+    required this.isMcq,
+    required this.level,
+  });
+
+  static List data = [];
+}

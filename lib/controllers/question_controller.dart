@@ -18,6 +18,27 @@ class QuestionController extends GetxController
   late PageController _pageController;
   PageController get pageController => this._pageController;
 
+  final List<FirebaseQuestion> _firebaseQuestions =
+      FirebaseQuestion.data.map((questionf) {
+    return FirebaseQuestion(
+      question: questionf.get('question'),
+      falseScore: questionf.get('is_mcq') ? 0 : questionf.get('false'),
+      options: questionf.get('is_mcq')
+          ? [
+              questionf.get('option_1'),
+              questionf.get('option_2'),
+              questionf.get('option_3'),
+              questionf.get('option_4'),
+            ]
+          : [],
+      trueScore: questionf.get('is_mcq') ? 10 : questionf.get('true'),
+      isMcq: questionf.get('is_mcq'),
+      level: questionf.get('level'),
+    );
+  }).toList();
+
+  List<FirebaseQuestion> get firebaseQuestions => this._firebaseQuestions;
+
   final List<Question> _questions = sample_data
       .map(
         (question) => Question(
@@ -32,18 +53,21 @@ class QuestionController extends GetxController
   bool _isAnswered = false;
   bool get isAnswered => this._isAnswered;
 
-  late int _correctAns;
-  int get correctAns => this._correctAns;
+  // late int _correctAns;
+  // int get correctAns => this._correctAns;
 
   late int _selectedAns;
   int get selectedAns => this._selectedAns;
+
+  late int _userScore = 0;
+  int get userScore => this._userScore;
 
   // for more about obs please check documentation
   final RxInt _questionNumber = 1.obs;
   RxInt get questionNumber => this._questionNumber;
 
-  int _numOfCorrectAns = 0;
-  int get numOfCorrectAns => this._numOfCorrectAns;
+  // int _numOfCorrectAns = 0;
+  // int get numOfCorrectAns => this._numOfCorrectAns;
 
   // called immediately after the widget is allocated memory
   @override
@@ -73,16 +97,27 @@ class QuestionController extends GetxController
     _pageController.dispose();
   }
 
-  void checkAns(Question question, int selectedIndex) {
+  void checkAns(FirebaseQuestion question, int selectedIndex, bool isMcq) {
     // because once user press any option then it will run
     _isAnswered = true;
-    _correctAns = question.answer;
+    // _correctAns = question.answer;
     _selectedAns = selectedIndex;
+    if (isMcq) {
+      _userScore +=
+          int.parse(question.options[selectedIndex]['score'].toString());
+    } else {
+      if (selectedIndex == 0) {
+        _userScore += question.trueScore;
+      } else {
+        _userScore += question.falseScore;
+      }
+    }
 
-    if (_correctAns == _selectedAns) _numOfCorrectAns++;
+    // if (_correctAns == _selectedAns) _numOfCorrectAns++;
 
     // It will stop the counter
     _animationController.stop();
+    print('User score ' + _userScore.toString());
     update();
 
     // Once user select an ans after 3s it will go to the next qn
@@ -93,7 +128,7 @@ class QuestionController extends GetxController
   }
 
   void nextQuestion() {
-    if (_questionNumber.value != _questions.length) {
+    if (_questionNumber.value != _firebaseQuestions.length) {
       print('2');
       _isAnswered = false;
       _pageController.nextPage(
