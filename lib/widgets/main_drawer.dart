@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mental_health_tracker_app/screens/feedback_screen.dart';
 import 'package:mental_health_tracker_app/screens/quiz/quiz_screen.dart';
 import 'package:mental_health_tracker_app/screens/suggestions_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -130,6 +131,13 @@ class MainDrawer extends StatelessWidget {
             () {
               // TMDBApi tmdb = new TMDBApi('YOUR_API_KEY_HERE');
               Get.to(() => SuggestionsScreen());
+            },
+          ),
+          buildListTile(
+            'Feedback',
+            Icons.feedback_outlined,
+            () {
+              Get.to(() => FeedbackScreen());
             },
           ),
           buildListTile(
