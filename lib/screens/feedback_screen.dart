@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../constants.dart';
+import 'home_screen.dart';
 
 class FeedbackScreen extends StatefulWidget {
   FeedbackScreen({Key? key}) : super(key: key);
@@ -11,6 +16,40 @@ class FeedbackScreen extends StatefulWidget {
 }
 
 class _FeedbackScreenState extends State<FeedbackScreen> {
+  Future<void> submitFeedback() async {
+    await FirebaseFirestore.instance.collection('feedback').add(
+      {
+        'user_id': FirebaseAuth.instance.currentUser!.uid,
+        'rating': _rating,
+        'note': _note,
+        'question_one': {
+          'Questions Quality': {
+            'like': _likeOne,
+            'dis_like': _dislikeOne,
+          },
+        },
+        'question_two': {
+          'App features': {
+            'like': _likeTwo,
+            'dis_like': _dislikeTwo,
+          },
+        },
+        'question_three': {
+          'XYZ': {
+            'like': _likeThree,
+            'dis_like': _dislikeThree,
+          },
+        },
+        'question_four': {
+          'PQR': {
+            'like': _likeFour,
+            'dis_like': _dislikeFour,
+          },
+        },
+      },
+    );
+  }
+
   Widget _image(String asset) {
     return Image.asset(
       asset,
@@ -35,6 +74,10 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
   var _likeFour = false;
 
   var _dislikeFour = false;
+
+  var _rating = 0.0;
+
+  var _note = '';
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +152,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                           horizontal: 4.0,
                         ),
                         onRatingUpdate: (rating) {
+                          _rating = rating;
                           print(rating);
                         },
                       ),
@@ -353,8 +397,9 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                     }
                     return null;
                   },
-                  onSaved: (value) {
-                    // _userEmail = value.toString();
+                  onChanged: (value) {
+                    print(value);
+                    _note = value.toString();
                   },
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.all(15),
@@ -385,8 +430,18 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                 width: MediaQuery.of(context).size.width,
                 child: OutlineButton(
                   splashColor: Colors.deepPurple.shade700,
-                  onPressed: () {
-                    // _trySubmit(authFunction);
+                  onPressed: () async {
+                    await submitFeedback();
+                    Future.delayed(const Duration(milliseconds: 50));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: const Text(
+                            'Thanks for filling out the Feedback Form.'),
+                        backgroundColor: Colors.green.shade300,
+                      ),
+                    );
+
+                    Get.to(() => const HomeScreen());
                   },
                   child: const Text(
                     'Submit',
