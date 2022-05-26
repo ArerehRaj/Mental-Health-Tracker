@@ -23,25 +23,25 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
         'rating': _rating,
         'note': _note,
         'question_one': {
-          'Questions Quality': {
+          'Did you answer all the questions truthfully?': {
             'like': _likeOne,
             'dis_like': _dislikeOne,
           },
         },
         'question_two': {
-          'App features': {
+          'Were the questions related to your current mental state?': {
             'like': _likeTwo,
             'dis_like': _dislikeTwo,
           },
         },
         'question_three': {
-          'XYZ': {
+          'Did the suggestions help in making your mood lighter?': {
             'like': _likeThree,
             'dis_like': _dislikeThree,
           },
         },
         'question_four': {
-          'PQR': {
+          'Were the movie/song recommendations as per your liking?': {
             'like': _likeFour,
             'dis_like': _dislikeFour,
           },

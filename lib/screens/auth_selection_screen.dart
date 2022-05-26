@@ -107,7 +107,7 @@ class AuthSelectionScreen extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       child: const Text(
-                        "Mental illness is not a personal failure.Be brave and it will pass by.",
+                        "Mental illness is not a personal failure\n Be brave and it will pass by.",
                         style: kBodyText,
                         textAlign: TextAlign.center,
                       ),
