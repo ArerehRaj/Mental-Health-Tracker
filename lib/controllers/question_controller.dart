@@ -98,7 +98,7 @@ class QuestionController extends GetxController
     super.onClose();
     _animationController.dispose();
     _pageController.dispose();
-    _questionNumber.value = 1;
+    // _questionNumber.value = 1;
   }
 
   Future<void> checkAns(
@@ -135,12 +135,12 @@ class QuestionController extends GetxController
       userLevel = 1;
     }
     update();
-    final _userID = FirebaseAuth.instance.currentUser!.uid;
-    await FirebaseFirestore.instance.collection('users').doc(_userID).update(
-      {
-        'user_level': userLevel,
-      },
-    );
+    // final _userID = FirebaseAuth.instance.currentUser!.uid;
+    // await FirebaseFirestore.instance.collection('users').doc(_userID).update(
+    //   {
+    //     'user_level': userLevel,
+    //   },
+    // );
 
     // Once user select an ans after 3s it will go to the next qn
     Future.delayed(Duration(seconds: 3), () {
@@ -165,6 +165,12 @@ class QuestionController extends GetxController
     } else {
       // Get package provide us simple way to naviigate another page
       print('3');
+      final _userID = FirebaseAuth.instance.currentUser!.uid;
+      FirebaseFirestore.instance.collection('users').doc(_userID).update(
+        {
+          'user_level': userLevel,
+        },
+      );
       Get.to(() => ResultScreen());
     }
   }

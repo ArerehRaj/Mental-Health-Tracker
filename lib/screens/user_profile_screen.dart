@@ -7,6 +7,10 @@ import 'home_screen.dart';
 class UserProfileScreen extends StatefulWidget {
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
+
+  UserProfileScreen({required this.userName});
+
+  final userName;
 }
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
@@ -113,7 +117,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         SizedBox(
                           height: 10.0,
                         ),
-                        Text('Erza Scarlet',
+                        Text(widget.userName,
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20.0,

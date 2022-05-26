@@ -120,13 +120,6 @@ class MainDrawer extends StatelessWidget {
             },
           ),
           buildListTile(
-            'Tasks',
-            Icons.task_alt_sharp,
-            () {
-              // Get.to(() => QuizScreen());
-            },
-          ),
-          buildListTile(
             'Suggestions',
             Icons.health_and_safety_sharp,
             () {
@@ -147,7 +140,10 @@ class MainDrawer extends StatelessWidget {
             () {
               // Navigator.of(context)
               // .pushReplacementNamed(FiltersScreen.routeName);
-              Get.to(() => UserProfileScreen());
+
+              Get.to(() => UserProfileScreen(
+                    userName: userName,
+                  ));
             },
           ),
           buildListTile(

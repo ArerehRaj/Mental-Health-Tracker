@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:input_slider/input_slider.dart';
 import 'package:mental_health_tracker_app/screens/suggestions_results_screen.dart';
 
 import '../constants.dart';
@@ -21,6 +22,8 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
   final TextEditingController _input = TextEditingController();
 
   bool _isLoading = false;
+
+  var energyLevel = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -102,45 +105,51 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
               const SizedBox(
                 height: 10,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: TextField(
-                  style: kBodyText.copyWith(
-                    color: Colors.deepPurple.shade700,
-                  ),
-                  keyboardType: TextInputType.text,
-                  textInputAction: TextInputAction.next,
-                  controller: _input,
-                  // validator: (value) {
-                  //   if (value!.isEmpty) {
-                  //     return 'Please enter a valid input';
-                  //   }
-                  //   return null;
-                  // },
-                  // onSaved: (value) {
-                  //   _input = value.toString();
-                  // },
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.all(15),
-                    hintText: 'Enter type',
-                    hintStyle: kBodyText,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                        color: Colors.black,
-                        width: 2,
-                      ),
-                      borderRadius: BorderRadius.circular(20),
+              if (_option == SuggestionsType.songs)
+                InputSlider(
+                  onChange: (value) {
+                    setState(() {
+                      energyLevel = int.parse(value.round().toString());
+                    });
+                  },
+                  activeSliderColor: Colors.deepPurple.shade600,
+                  min: 0.0,
+                  max: 100.0,
+                  decimalPlaces: 0,
+                  defaultValue: 5.0,
+                  leading: Text("Energy Level:"),
+                ),
+              if (_option == SuggestionsType.movie)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: TextField(
+                    style: kBodyText.copyWith(
+                      color: Colors.deepPurple.shade700,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: Colors.deepPurple.shade700,
-                        width: 2,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    controller: _input,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.all(15),
+                      hintText: 'Enter type',
+                      hintStyle: kBodyText,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
                       ),
-                      borderRadius: BorderRadius.circular(20),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.deepPurple.shade700,
+                          width: 2,
+                        ),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
                   ),
                 ),
-              ),
               const SizedBox(
                 height: 15,
               ),
@@ -174,7 +183,7 @@ class _SuggestionsScreenState extends State<SuggestionsScreen> {
                               .collection('spotify_music_database')
                               .where(
                                 'Energy',
-                                isEqualTo: 45,
+                                isEqualTo: energyLevel,
                               )
                               .get();
                       docsList = suggestionsDocuments.docs;

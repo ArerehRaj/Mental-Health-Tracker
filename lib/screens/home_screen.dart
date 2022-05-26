@@ -25,8 +25,10 @@ class _HomeScreenState extends State<HomeScreen> {
   String _userName = '';
   int _userLevel = 0;
   final _userID = FirebaseAuth.instance.currentUser!.uid;
+  var suggestionsList = [];
+  var string = 'How are you feeling today?';
 
-  void setUserName() async {
+  Future<void> setUserName() async {
     final userDataDoc =
         await FirebaseFirestore.instance.collection('users').doc(_userID).get();
     final userData = userDataDoc.data() as Map;
@@ -35,43 +37,59 @@ class _HomeScreenState extends State<HomeScreen> {
       _userName = userData['name'];
       _userLevel = int.parse(userData['user_level'].toString());
     });
+
+    final userSuggestionDoc = await FirebaseFirestore.instance
+        .collection('suggestions')
+        .where('level', isEqualTo: _userLevel)
+        .get();
+
+    setState(() {
+      suggestionsList = userSuggestionDoc.docs;
+    });
   }
 
   Widget _getMindStateIcons(
     String imagePath,
     String text,
   ) {
-    return Container(
-      margin: const EdgeInsets.all(10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(15),
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          string = 'I am feeling ' + text + ' today!';
+        });
+      },
+      child: Container(
+        margin: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 2),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(15),
+          ),
         ),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Image.asset(
+            imagePath,
+            // fit: BoxFit.cover,
+            height: 70,
+            width: 90,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          FittedBox(
+            child: Text(text),
+          ),
+        ]),
       ),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(
-          imagePath,
-          // fit: BoxFit.cover,
-          height: 70,
-          width: 90,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        FittedBox(
-          child: Text(text),
-        ),
-      ]),
     );
   }
 
   Widget _getTaskCards(
     String title,
-    String text,
+    // String text,
     Color color,
-    String actionText,
+    // String actionText,
   ) {
     return Container(
       margin: const EdgeInsets.all(10),
@@ -100,35 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           const SizedBox(
             height: 10,
-          ),
-          Text(
-            text,
-            style: const TextStyle(
-              fontSize: 16,
-              fontFamily: 'Alegreya',
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              FlatButton.icon(
-                onPressed: () {},
-                label: Text(
-                  actionText,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'Alegreya',
-                  ),
-                ),
-                icon: const Icon(
-                  Icons.arrow_right,
-                  size: 30,
-                ),
-              ),
-            ],
           ),
         ],
       ),
@@ -221,9 +210,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       height: deviceSize.height * 0.0075,
                     ),
-                    const Text(
-                      'How are you feeling today?',
-                      style: TextStyle(
+                    Text(
+                      // 'How are you feeling today?',
+                      string,
+                      style: const TextStyle(
                         fontSize: 20,
                         fontFamily: 'Alegreya',
                       ),
@@ -274,23 +264,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ListView(
                         scrollDirection: Axis.vertical,
                         children: [
-                          _getTaskCards(
-                            'Music For You',
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.',
-                            Colors.pink.shade200,
-                            'Listen Now',
-                          ),
-                          _getTaskCards(
-                            'Meditation',
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.',
-                            Colors.green.shade300,
-                            'Meditate Now',
-                          ),
-                          _getTaskCards(
-                            'Tasks',
-                            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry.',
-                            Colors.blue.shade200,
-                            'Checkout Now',
+                          Container(
+                            width: deviceSize.width,
+                            height: deviceSize.height,
+                            child: ListView.builder(
+                              itemBuilder: (ctx, index) {
+                                return _getTaskCards(
+                                  suggestionsList[index].get('suggestion'),
+                                  Colors.green.shade200,
+                                );
+                              },
+                              itemCount: suggestionsList.length,
+                            ),
                           ),
                         ],
                       ),
