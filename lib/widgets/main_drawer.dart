@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:mental_health_tracker_app/screens/feedback_screen.dart';
 import 'package:mental_health_tracker_app/screens/quiz/quiz_screen.dart';
 import 'package:mental_health_tracker_app/screens/suggestions_screen.dart';
+import 'package:mental_health_tracker_app/screens/user_profile_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -146,6 +147,7 @@ class MainDrawer extends StatelessWidget {
             () {
               // Navigator.of(context)
               // .pushReplacementNamed(FiltersScreen.routeName);
+              Get.to(() => UserProfileScreen());
             },
           ),
           buildListTile(

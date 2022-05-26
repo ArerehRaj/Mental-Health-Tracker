@@ -84,6 +84,17 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: IconButton(
+              icon: const Icon(Icons.highlight_remove),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          )
+        ],
         backgroundColor: Colors.white,
         iconTheme: const IconThemeData(
           color: Colors.black,
