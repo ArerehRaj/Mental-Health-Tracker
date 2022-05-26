@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/state_manager.dart';
 import '/models/Questions.dart';
-import '/screens/score/score_screen.dart';
+import '/screens/result_screen.dart';
 
 // We use get package for our state management
 
@@ -18,6 +20,7 @@ class QuestionController extends GetxController
   late PageController _pageController;
   PageController get pageController => this._pageController;
 
+  int userLevel = 1;
   final List<FirebaseQuestion> _firebaseQuestions =
       FirebaseQuestion.data.map((questionf) {
     return FirebaseQuestion(
@@ -95,9 +98,11 @@ class QuestionController extends GetxController
     super.onClose();
     _animationController.dispose();
     _pageController.dispose();
+    _questionNumber.value = 1;
   }
 
-  void checkAns(FirebaseQuestion question, int selectedIndex, bool isMcq) {
+  Future<void> checkAns(
+      FirebaseQuestion question, int selectedIndex, bool isMcq) async {
     // because once user press any option then it will run
     _isAnswered = true;
     // _correctAns = question.answer;
@@ -118,7 +123,24 @@ class QuestionController extends GetxController
     // It will stop the counter
     _animationController.stop();
     print('User score ' + _userScore.toString());
+    if (_userScore >= 1 && _userScore <= 16) {
+      userLevel = 5;
+    } else if (_userScore >= 17 && _userScore <= 32) {
+      userLevel = 4;
+    } else if (_userScore >= 33 && _userScore <= 48) {
+      userLevel = 3;
+    } else if (_userScore >= 49 && _userScore <= 64) {
+      userLevel = 2;
+    } else if (_userScore >= 65) {
+      userLevel = 1;
+    }
     update();
+    final _userID = FirebaseAuth.instance.currentUser!.uid;
+    await FirebaseFirestore.instance.collection('users').doc(_userID).update(
+      {
+        'user_level': userLevel,
+      },
+    );
 
     // Once user select an ans after 3s it will go to the next qn
     Future.delayed(Duration(seconds: 3), () {
@@ -143,7 +165,7 @@ class QuestionController extends GetxController
     } else {
       // Get package provide us simple way to naviigate another page
       print('3');
-      Get.to(() => ScoreScreen());
+      Get.to(() => ResultScreen());
     }
   }
 

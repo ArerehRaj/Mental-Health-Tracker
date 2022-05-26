@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mental_health_tracker_app/screens/result_screen.dart';
+import 'package:mental_health_tracker_app/controllers/question_controller.dart';
+import 'home_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
   @override
@@ -11,6 +13,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   int counter = 0;
   @override
   Widget build(BuildContext context) {
+    QuestionController _qnController = Get.put(QuestionController());
+    int userlevel = _qnController.userLevel;
+    var usermood = "";
+    if (userlevel == 1) {
+      usermood = "Happy and relaxed";
+    } else if (userlevel == 2) {
+      usermood = "Healthy Mental State";
+    } else if (userlevel == 3) {
+      usermood = "A little stressed";
+    } else if (userlevel == 4) {
+      usermood = "Stressed";
+    } else if (userlevel == 5) {
+      usermood = "Depressed";
+    }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -106,7 +122,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           height: 10.0,
                         ),
                         Text(
-                          'S Class Mage',
+                          usermood,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 15.0,

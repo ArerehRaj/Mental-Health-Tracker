@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../constants.dart';
 import 'home_screen.dart';
@@ -179,11 +178,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               Card(
                 child: SizedBox(
-                  height: 50,
+                  height: 70,
                   width: deviceSize.width,
                   child: ListTile(
                     title: const Text(
-                      'Questions Quality',
+                      'Did you answer all the questions truthfully?',
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Alegreya',
@@ -234,11 +233,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               Card(
                 child: SizedBox(
-                  height: 50,
+                  height: 85,
                   width: deviceSize.width,
                   child: ListTile(
                     title: const Text(
-                      'App features',
+                      'Were the questions related to your current mental state?',
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Alegreya',
@@ -289,11 +288,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               Card(
                 child: SizedBox(
-                  height: 50,
+                  height: 70,
                   width: deviceSize.width,
                   child: ListTile(
                     title: const Text(
-                      'XYZ',
+                      'Did the suggestions help in making your mood lighter?',
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Alegreya',
@@ -344,11 +343,11 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
               ),
               Card(
                 child: SizedBox(
-                  height: 50,
+                  height: 85,
                   width: deviceSize.width,
                   child: ListTile(
                     title: const Text(
-                      'PQR',
+                      'Were the movie/song recommendations as per your liking?',
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Alegreya',
